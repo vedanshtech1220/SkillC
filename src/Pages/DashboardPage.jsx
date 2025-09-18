@@ -32,14 +32,14 @@ function DashboardPage() {
         }
 
         const response = await axios.get('http://localhost:5000/api/user/me', {
-          headers: { 'x-auth-token': token },
+          headers: { 'Authorization': `Bearer ${token}` },
         });
 
         setUser(response.data);
         setLoading(false);
       } catch (error) {
         console.error("Failed to fetch user data:", error);
-        localStorage.removeItem('token'); // Clear bad token
+        // localStorage.removeItem('token'); // Clear bad token
         setLoading(false);
         navigate('/login'); // Redirect to login on error
       }
