@@ -6,6 +6,7 @@ function SignUpPage() {
   const [fullName, setFullName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [role, setRole] = useState('user'); // default role
   const navigate = useNavigate();
 
   const handleSubmit = async (event) => {
@@ -15,11 +16,15 @@ function SignUpPage() {
         fullName,
         email,
         password,
+        role, // ✅ send role too
       });
       console.log('Sign-up successful:', response.data);
       navigate('/login');
     } catch (error) {
-      console.error('Sign-up failed:', error.response ? error.response.data : error.message);
+      console.error(
+        'Sign-up failed:',
+        error.response ? error.response.data : error.message
+      );
     }
   };
 
@@ -30,9 +35,12 @@ function SignUpPage() {
           Create an Account
         </h2>
         <form onSubmit={handleSubmit}>
-          {/* ---- START: ADD THIS SECTION BACK IN ---- */}
+          {/* Full Name */}
           <div className='mb-4'>
-            <label className='block text-zinc-400 text-sm font-bold mb-2' htmlFor='fullName'>
+            <label
+              className='block text-zinc-400 text-sm font-bold mb-2'
+              htmlFor='fullName'
+            >
               Full Name
             </label>
             <input
@@ -44,8 +52,13 @@ function SignUpPage() {
               required
             />
           </div>
+
+          {/* Email */}
           <div className='mb-4'>
-            <label className='block text-zinc-400 text-sm font-bold mb-2' htmlFor='email'>
+            <label
+              className='block text-zinc-400 text-sm font-bold mb-2'
+              htmlFor='email'
+            >
               Email
             </label>
             <input
@@ -57,8 +70,13 @@ function SignUpPage() {
               required
             />
           </div>
+
+          {/* Password */}
           <div className='mb-6'>
-            <label className='block text-zinc-400 text-sm font-bold mb-2' htmlFor='password'>
+            <label
+              className='block text-zinc-400 text-sm font-bold mb-2'
+              htmlFor='password'
+            >
               Password
             </label>
             <input
@@ -70,8 +88,27 @@ function SignUpPage() {
               required
             />
           </div>
-          {/* ---- END: ADD THIS SECTION BACK IN ---- */}
-          
+
+          {/* Role Dropdown */}
+          <div className='mb-6'>
+            <label
+              className='block text-zinc-400 text-sm font-bold mb-2'
+              htmlFor='role'
+            >
+              Role
+            </label>
+            <select
+              id='role'
+              value={role}
+              onChange={(e) => setRole(e.target.value)}
+              className='w-full px-3 py-2 bg-zinc-700 text-white border border-zinc-600 rounded-md focus:outline-none focus:ring-2 focus:ring-[#E5005F]'
+            >
+              <option value='user'>User</option>
+              <option value='admin'>Admin</option>
+            </select>
+          </div>
+
+          {/* Submit Button */}
           <button
             type='submit'
             className='w-full bg-[#E5005F] text-white font-bold py-2 px-4 rounded-md hover:bg-opacity-90 transition-colors'
@@ -79,6 +116,8 @@ function SignUpPage() {
             Sign Up
           </button>
         </form>
+
+        {/* Already have an account? */}
         <p className='text-center text-zinc-400 text-sm mt-6'>
           Already have an account?{' '}
           <Link to='/login' className='text-[#E5005F] hover:underline'>
