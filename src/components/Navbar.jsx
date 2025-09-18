@@ -1,9 +1,10 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 function Navbar() {
   // 1. Create an array of objects to hold both the link text and its destination (href)
   const navLinks = [
-    { text: "Services", href: "#services" },
+    { text: "Dashboard", href: "/dashboard" },
     { text: "Our Work", href: "#our-work" },
     { text: "About Us", href: "#about-us" },
     { text: "Insights", href: "#insights" },
